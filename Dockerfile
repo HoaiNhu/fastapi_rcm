@@ -26,4 +26,4 @@ RUN pip install lightfm==1.17
 RUN pip install --no-cache-dir -r requirements.txt
 
 # Chạy FastAPI
-CMD ["uvicorn", "main:app", "--host", "0.0.0.0", "--port", "$PORT"]
+CMD uvicorn main:app --host 0.0.0.0 --port $PORT

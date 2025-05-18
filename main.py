@@ -12,18 +12,29 @@ import redis
 import json
 from fastapi import FastAPI
 from pydantic import BaseModel
+from dotenv import load_dotenv
+load_dotenv()
 
 # Kết nối MongoDB
 MONGODB_URI = "mongodb+srv://hnhu:hoainhu1234@webbuycake.asd8v.mongodb.net/?retryWrites=true&w=majority&appName=WebBuyCake"
 client = pymongo.MongoClient(MONGODB_URI)
 db = client['test']
 
-# Kết nối Redis
+import redis
+
+# Kết nối Redis với Upstash
 try:
-    redis_client = redis.Redis(host='localhost', port=6379, db=0, decode_responses=True)
+    redis_client = redis.Redis(
+        host=os.getenv('UPSTASH_REDIS_HOST'),
+        port=int(os.getenv('UPSTASH_REDIS_PORT')),
+        password=os.getenv('UPSTASH_REDIS_PASSWORD'),
+        ssl=True,
+        decode_responses=True
+    )
     redis_client.ping()
-except redis.ConnectionError:
-    print("Redis không chạy, bỏ qua cache.")
+    print("Kết nối Upstash Redis thành công!")
+except redis.ConnectionError as e:
+    print(f"Không kết nối được Upstash Redis: {e}")
     redis_client = None
 
 # Chuẩn bị dữ liệu

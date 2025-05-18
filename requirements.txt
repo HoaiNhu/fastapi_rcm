@@ -1,0 +1,7 @@
+fastapi
+uvicorn
+lightfm
+pymongo
+numpy
+pandas
+redis

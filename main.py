@@ -158,6 +158,14 @@ class RecommendationRequest(BaseModel):
     user_id: str
     product_id: str
 
+@app.get("/")
+async def root():
+    return {"message": "Welcome to the Recommendation API!"}
+
+@app.get("/health")
+async def health_check():
+    return {"status": "healthy"}
+
 @app.post("/recommend")
 async def get_recommendations(request: RecommendationRequest):
     recommendations = recommend(request.user_id, request.product_id, db, model, dataset)

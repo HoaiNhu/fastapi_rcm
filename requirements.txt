@@ -6,7 +6,7 @@ numpy==1.26.4
 pandas==2.2.2
 redis==5.1.1
 scikit-learn==1.5.2
-setuptools>=61.0
-wheel
-cython
+setuptools==65.6.3
+wheel==0.44.0
+cython==3.0.11
 python-dotenv==1.0.1
